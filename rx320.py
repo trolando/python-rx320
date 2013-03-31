@@ -59,9 +59,17 @@ class RX320():
     def handle_response(self, buf):
         if buf[0] == ord('\x58'):
             if len(buf) >= 3:
-                self.strength = (buf[1] * 256) + buf[2]
-        else:
+                self.strength = buf[1] * 256 + buf[2]
+            else:
+                pass # invalid strength response! (ignore)
+        elif buf[0] == ord('\x5a'):
+            pass # unrecognized command! (ignore)
+        elif len(buf) > 3 and str(bytearray(buf[:3])) == 'VER':
             self.firmware = str(bytearray(buf))
+        elif len(buf) > 3 and str(bytearray(buf[:3])) == 'DSP':
+            pass # power on! (ignore)
+        else
+            pass # unknown response! (ignore)
 
     def set_freq(self, freq, cwbfo=0):
         assert hasattr(self, 'mode')
