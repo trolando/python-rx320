@@ -51,10 +51,10 @@ class RX320():
                 else:
                     buf.append(ch)
 
-    def strength_thread(self, time):
+    def strength_thread(self, sleep_time):
         while True:
             self.send_get_strength()
-            time.sleep(time)
+            time.sleep(sleep_time)
 
     def handle_response(self, buf):
         if buf[0] == ord('\x58'):
@@ -68,7 +68,7 @@ class RX320():
             self.firmware = str(bytearray(buf))
         elif len(buf) > 3 and str(bytearray(buf[:3])) == 'DSP':
             pass # power on! (ignore)
-        else
+        else:
             pass # unknown response! (ignore)
 
     def set_freq(self, freq, cwbfo=0):
