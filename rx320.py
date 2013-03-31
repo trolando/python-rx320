@@ -115,13 +115,13 @@ class RX320():
     def set_line_volume(self, vol):
         if vol < 0: vol = 0
         if vol > 99: vol = 99
-        self.ser.write(b'\x41%c\x0d' % vol)
+        self.ser.write(b'\x41\x00%c\x0d' % vol)
         self.line_volume = vol
 
     def set_speaker_volume(self, vol):
         if vol < 0: vol = 0
         if vol > 99: vol = 99
-        self.ser.write(b'\x56%c\x0d' % vol)
+        self.ser.write(b'\x56\x00%c\x0d' % vol)
         self.speaker_volume = vol
  
     def set_volume(self, vol):
